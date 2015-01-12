@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Selecting elements with jquery</title>
+	<script src="../sources/jquery-2.1.3.js"></script>
+	<style>
+		.info {
+			 width: 530px;
+			 border: solid 2px yellow;
+			 padding: 10px;
+			 text-align: center;
+			 margin-top: 10px;
+			 display: none;
+		 }
+	</style>
+	<script>
+	$(function(){
+		$('.hoverinfo').mouseover(function(){
+			$('.info').html($(this).attr("rel"));
+			$('.info').fadeIn();
+		}).mouseleave(function(){
+			$('.info').hide();
+		});
+
+		//trigger
+		$('.submit-btn').on("click", function(){
+		 	alert("Submit the form!");
+		});
+		$('input[type="text"]').keypress(function(event){
+			if (event.which == 13) {
+				$('.submit-btn').trigger("click");
+			}
+		});
+	});
+	</script>
+</head>
+<body>
+	<h2>Mouse event</h2>
+	<label>Your Name:</label>
+	<input type="text" name="name" class="hoverinfo" rel="Please provide us with your name." />
+	<label>Your Email:</label>
+	<input type="text" name="email" class="hoverinfo" rel="Please provide us with your email address" />
+	<button class="hoverinfo" rel="Click here to submit your information to us">Submit</button>
+	<div class="info"></div> <br />
+
+	<button class="submit-btn">Submit</button>
+
+	6888888888 pages
+</body>
+</html>
