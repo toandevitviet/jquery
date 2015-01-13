@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax and json</title>
+	<script src="../../sources/jquery-2.1.3.js"></script>
+	<style>
+		.left{
+			width: 200px;
+			background: #ccc;
+			float: left;
+			height: 100px;
+			text-align: center;
+			font-size: 25px;
+			padding: 40px 10px 10px 10px;
+		}
+		.right{
+			width: 300px;
+			float: left;
+			margin-left: 10px;
+			background: #333;
+			color: #fff;
+			height: 120px;
+			font-size: 20px;
+			position: relative;
+			padding: 20px 10px 10px 10px;
+		}
+		.refresh{
+			position: absolute;
+			right: 5px;
+			top: 5px;
+		}
+	</style>
+	<script>
+	$(function(){
+		$('.refresh').click(function() {
+			$.ajax({
+				url: 'request.php',
+				type: 'GET'
+			}).done(function(data){
+				$('.quote').html(data);
+			}).fail(function(event){
+				alert("An error: " + event.status);
+			});
+		});
+	});
+	</script>
+</head>
+<body>
+	<div class="left">
+		Quotes
+	</div>
+	<div class="right">
+		<p class="quote"></p>
+		<button class="refresh">Get quote</button>
+	</div>
+</body>
+</html>

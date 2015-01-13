@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>ajax and json</title>
+	<script src="../../sources/jquery-2.1.3.js"></script>
+	<style>
+
+	</style>
+	<script>
+	//find searching object
+	function findobject(parameter, value, object){
+		var matches = [];
+		for(var i in object){
+			if(typeof object[i] == 'object') {
+				matches = matches.concat(findobject(parameter, value, object[i]));
+			} else if(i== parameter && object[parameter] == value){
+				matches.push(object)
+			}
+		}
+		return matches;
+	}
+
+	//sort object
+	function sortobjectbyparam(param){
+		return function(a,b){
+			if(a[param] == b[param]) { return 0;}
+			if(a[param] > b[param]) { return 1;}
+			else { return -1; }
+		}
+	}
+
+
+	$(function(){
+		$.ajax({
+			url: 'rq_json.php',
+			type: 'GET'
+		}).done(function(data){
+			$.each(data, function(index, val) {
+				$('#arraylist').append("<li>" + index + " " + val.firsname + " " + val.lastname + "</li>");
+			});
+
+			var results = findobject("firsname","Nguyen", data);
+			console.log(results);
+
+			// data.sort(sortobjectbyparam("firsname"));
+			// console.log(data);
+
+		}).fail(function(event){
+			alert("An error: " + event.status);
+		});
+	});
+	</script>
+</head>
+<body>
+	<ul id="arraylist"></ul>
+</body>
+</html>
