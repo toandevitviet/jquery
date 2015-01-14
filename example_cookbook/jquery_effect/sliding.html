@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Sliding element jquery</title>
+	<script src="../sources/jquery-2.1.3.js"></script>
+	<script>
+	$(function(){
+		$('#up').click(function() {
+			$('.one').slideUp(4000);
+			$('.two').slideUp(3000);
+			$('.three').slideUp(2000);
+			$('.four').slideUp(1000);
+		});
+		$('#down').click(function() {
+			$('.one').slideDown(4000);
+			$('.two').slideDown(3000);
+			$('.three').slideDown(2000);
+			$('.four').slideDown(1000);
+		});
+
+		$('#add-new-item').click(function() {
+			var item = $('#new-item').val();
+			if(item.length > 0){
+				var newitem = $("<li>" + item + "</li>").fadeIn();
+				$('.list').append(newitem);
+				$('#new-item').val(" ");
+			}
+		});
+
+		$('.fadeToggle').click(function(){
+			$('.textp').fadeToggle();
+		});
+		$('.slideToggle').click(function(){
+			$('.textp').slideToggle(5000);
+		});
+		$('.hideToggle').click(function(){
+			$('.textp').toggle();
+		});
+		$('.stop').click(function(){
+			$('.textp').stop();
+		});
+		$('.finish').click(function(){
+			$('.textp').finish();
+		});
+
+		$('#startmore').click(function(){
+			$('.boxmore').fadeOut().fadeIn().slideDown().fadeTo(1000, 0.1).fadeTo(1000, 1);
+		});
+	});
+	</script>
+	<style>
+		.frame{
+			width: 530px;
+			height: 190px;
+			margin: 50px auto auto auto;
+			background: #e1e1e1;
+			padding: 10px;
+		}
+		.frame .box{
+			width: 125px;
+			height: 125px;
+			float: left;
+			margin-right: 10px;
+		}
+		.frame .box:last-child{
+			margin-right: 0;
+		}
+		.frame .actions{
+			background: #333;
+			margin-bottom: 10px;
+			text-align: center;
+			padding: 10px;
+		}
+		.frame .actions button{
+			height: 35px;
+		}
+		.one{
+			background: red;
+		}
+		.two{
+			background: green;
+		}
+		.three{
+			background: blue;
+		}
+		.four{
+			background: orange;
+		}
+
+		.top {
+			 background-color: #333333;
+			 padding: 10px;
+			 text-align: center;
+	 		 color: #FFF;
+		}
+		.list li {
+ 			 line-height: 30px;
+		}
+		.boxmore {
+			width: 150px;
+			height: 150px;
+			background-color: red;
+			margin:10px 30px;
+		}
+	</style>
+</head>
+<body>
+	<div class="frame">
+		<div class="actions">
+			<button id="down">slide down</button>
+			<button id="up">slide up</button>
+		</div>
+		<div class="box one"></div>
+		<div class="box two"></div>
+		<div class="box three"></div>
+		<div class="box four"></div>
+	</div>
+	<div class="frame">	
+		<div class="top">
+			<label>Add Item:</label>
+			<input type="text" id="new-item" />
+			<button id="add-new-item">Add</button>
+		</div>
+		<ol class="list"></ol>
+	</div>
+	<div class="frame">
+		<div>
+			 <button class="fadeToggle">Toggle Fade!</button>
+			 <button class="slideToggle">Toggle Slide!</button>
+			 <button class="hideToggle">Toggle Hide!</button>
+			 <button class="stop">Stop</button>
+			 <button class="finish">Finish</button>
+		</div>
+		 <p class="textp">Here is some text that can be faded in
+		 and out! Here is some text that can be faded in and
+		 out! Here is some text that can be faded in and out!
+		 Here is some text that can be faded in and out! Here is
+		 some text that can be faded in and out! Here is some
+		 text that can be faded in and out! Here is some text
+		 that can be faded in and out! Here is some text that
+		 can be faded in and out! Here is some text that can be
+		 faded in and out! Here is some text that can be faded
+		 in and out! Here is some text that can be faded in and
+		 out! Here is some text that can be faded in and
+		 out!</p>
+	</div>
+	<div class="frame">
+		<button id="startmore">Start</button>
+ 		<div class="boxmore"></div>
+	</div>
+</body>
+</html>
