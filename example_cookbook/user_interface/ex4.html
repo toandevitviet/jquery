@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Pop up  +  add dragg </title>
+	<script src="../sources/jquery-2.1.3.js"></script>
+	<style>
+		.modal-backdrop {
+			background-color: rgba(0, 0, 0, 0.61);
+			position: absolute;
+			top: 0;
+			bottom: 0;
+			left: 0;
+			right: 0;
+			display: none;
+		}
+		.modal {
+			width: 500px;
+			position: absolute;
+			top: 25%;z-index: 1020;
+			background-color: #FFF;
+			border-radius: 6px;
+			display: none;
+		}
+		.modal-header {
+			background-color: #333;
+			color: #FFF;
+			border-top-right-radius: 5px;
+			border-top-left-radius: 5px;
+		}
+		.modal-header h3 {
+			margin: 0;
+			padding: 0 10px 0 10px;
+			line-height: 40px;
+		}
+		.modal-header h3 .close-modal {
+			float: right;
+			text-decoration: none;
+			color: #FFF;
+		}
+		.modal-footer {
+			background-color: #F1F1F1;
+			padding: 0 10px 0 10px;
+			line-height: 40px;
+			text-align: right;
+			border-bottom-right-radius: 5px;
+			border-bottom-left-radius: 5px;
+			border-top: solid 1px #CCC;
+		}
+		.modal-body {
+			padding: 0 10px 0 10px;
+		}	
+	</style>
+	<script>
+		$(function(){
+			modalPosition();
+			$(window).resize(function(){
+				modalPosition();
+			});
+			$('.openModal').click(function(){
+				$('.modal, .modal-backdrop').fadeIn('fast');
+			});
+			$('.close-modal').click(function(){
+				$('.modal, .modal-backdrop').fadeOut('fast');
+			});
+			$('.draggable').on("mousedown", function(){
+				$(this).addClass('dragging');
+			}).on("mousemove mouseout", function(event){
+				if ($(this).hasClass("dragging")) {
+					var left = (event.pageX - ($(this).width() / 2));
+					if (left > ($(window).width() - $(this).width())) {
+						left = ($(window).width() - $(this).width());
+					} else if(left <= 0) {
+						left = 0;
+					}
+					var top = (event.pageY - ($(this).height() / 2));
+					if (top > ($(window).height() - $(this).height())) {
+						top = ($(window).height() - $(this).height());
+					} else if (top <= 0) {
+						top = 0;
+					}
+					//Set new position
+					$(this).css({
+						top: top + "px",
+						left: left + "px",
+						position: "absolute"
+					});
+				}
+			}).on("mouseup", function(){
+				$(this).removeClass('dragging');
+			});
+		});
+		function modalPosition(){
+			var width = $('.modal').width();
+			var pageWidth = $(window).width();
+			var x = (pageWidth/2)-(width/2);
+			$('.modal').css({left: x + "px"});
+		}
+	</script>
+</head>
+<body>
+	<button class="openModal">Open Modal</button>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+	nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+	in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+	nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+	sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit,
+	sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+	Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris
+	nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+	in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+	nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+	sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+	<div class="modal draggable">
+		<div class="modal-header">
+			<h3>Modal Header Text <a class="close-modal" href="#">&times;</a></h3>
+		</div>
+		<div class="modal-body">
+			<p>This is some modal content text.</p>
+		</div>
+		<div class="modal-footer">
+			<button class="modalOK close-modal">OK</button>
+		</div>
+	</div>
+	<div class="modal-backdrop"></div>
+</body>
+</html>

@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Drag and drop</title>
+	<script src="../sources/jquery-2.1.3.js"></script>
+	<style>
+		.container {
+			width: 800px;
+			height: 500px;
+			border: solid 2px #333333;
+			margin: 20px auto auto auto;
+		}
+		.draggable {
+			width: 120px;
+			height: 120px;
+			margin: 10px;
+			background-color: darkred;
+			cursor: pointer;
+		}
+		.draggable.dragging {
+			box-shadow: 5px 5px 5px #CCC;
+		}	
+	</style>
+	<script>
+		$(function(){
+			$('.draggable').on("mousedown", function(){
+				$(this).addClass('dragging');
+			}).on("mousemove mouseout", function(event){
+				if($(this).hasClass('dragging')){
+					var parentPosition = $(this).parent().offset();
+					var left = (event.pageX - ($(this).width()/2));
+					var parentRight = parentPosition.left + $(this).parent().width();
+					if(left > (parentRight - $(this).width())){
+						left = (parentRight - $(this).width());
+					} else if(left <= parentPosition.left){
+						left = parentPosition.left;
+					}
+					var top = (event.pageY - ($(this).height()/2));
+					var parentBottom = parentPosition.top + $(this).parent().height();
+					if(top > (parentBottom - $(this).height())){
+						top = (parentBottom - $(this).height());
+					} else if(top <= parentBottom.top){
+						top = parentPosition.top;
+					}
+
+					//set new position
+					$(this).css({
+						top: top + "px",
+						left: left + "px",
+						position: "absolute"
+					});
+				}
+			}).on("mouseup", function(){
+				$(this).removeClass('dragging');
+			});
+		});
+	</script>
+</head>
+<body>
+	 <div class="container">
+		 <div class="draggable"></div>
+		 <div class="draggable"></div>
+		 <div class="draggable"></div>
+	 </div>
+</body>
+</html>
